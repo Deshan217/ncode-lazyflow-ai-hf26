@@ -1,0 +1,50 @@
+name: LazyFlow unit tests and real Gemma
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -v
+      - run: python -m py_compile app.py engine.py
+  real-gemma:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+      - name: Start local Ollama
+        run: |
+          OLLAMA_HOST=127.0.0.1:11434 ollama serve >/tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1 && break
+            sleep 2
+          done
+          ollama pull gemma3:1b
+      - name: Start LazyFlow
+        run: |
+          python app.py >/tmp/lazyflow.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8787/api/health >/dev/null 2>&1 && break
+            sleep 1
+          done
+      - name: Run actual Gemma inference
+        run: python scripts/real_ai_demo.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lazyflow-real-gemma-evidence
+          path: evidence/
+          if-no-files-found: warn

@@ -12,7 +12,11 @@ The goal is not to promise magical productivity: it is to reduce the friction of
 
 **Repository:** https://github.com/Deshan217/ncode-lazyflow-ai-hf26
 
-**Demonstration:** [ADD VERIFIED SCREEN RECORDING OR PUBLIC VIEWABLE SCREENSHOTS BEFORE PUBLISHING]
+**Real model evidence (passed):** https://github.com/Deshan217/ncode-lazyflow-ai-hf26/actions/runs/39414746192
+
+**Download real generated plan JSON:** https://github.com/Deshan217/ncode-lazyflow-ai-hf26/actions/runs/39414746192/artifacts/12260269969
+
+**Browser demo video/screenshots:** [ADD LINK TO SUCCESSFUL NEW CI ARTIFACT AFTER VERIFICATION]
 
 **Real Gemma GitHub Actions verification:** https://github.com/Deshan217/ncode-lazyflow-ai-hf26/actions
 
@@ -36,9 +40,9 @@ I chose a small, portable architecture that doesn't need paid subscriptions, acc
 4. The model produces JSON with prioritized actions, durations and a gentle first step.
 5. The application checks the response, caps the plan to fit the selected time budget, and renders the steps.
 
-**Testing:** [INSERT LATEST REAL GEMMA WORKFLOW STATUS, DATE, AND VERIFIED EXAMPLE PLAN FROM ACTUAL CI ARTIFACT]
+**Testing:** On October 20, 2026, GitHub Actions run #39414746192 completed successfully, including the real-Gemma job, which called the local app API and required a nonempty Gemma-generated plan. The downloadable JSON artifact is linked above. Automated Python tests and syntax checks passed too.
 
-**Screenshot:** [ADD GENUINE SCREENSHOT OF THE RUNNING APP, NOT JUST A DESIGN MOCKUP]
+**Screenshot/video:** [ADD VERIFIED CAPTURE FROM NEW GITHUB ACTIONS RUN]
 
 ## Why Does Open Innovation Matter?
 
@@ -55,7 +59,7 @@ Instead of maximizing tasks per minute, LazyFlow helps users start with one achi
 - A local Ollama installation and downloaded model are required.
 - Model responses are untrusted and need careful parsing and time-budget validation.
 - The app is intentionally not publicly hosted as a multi-user AI service.
-- A real inference test must complete before claiming verified AI execution.
+- The verified GitHub Actions run used actual Gemma 3 1B inference through Ollama, separate from mocked unit tests.
 
 ## What's Next?
 

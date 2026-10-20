@@ -42,6 +42,12 @@ jobs:
           done
       - name: Run actual Gemma inference
         run: python scripts/real_ai_demo.py
+      - name: Install browser capture dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright-core@1.56.1
+          which google-chrome || which chromium || true
+      - name: Capture genuine browser demo
+        run: node scripts/capture_demo.mjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:

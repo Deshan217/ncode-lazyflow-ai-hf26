@@ -45,6 +45,7 @@ jobs:
       - name: Install browser capture dependencies
         run: |
           npm install --no-save --no-package-lock playwright-core@1.56.1
+          npx playwright-core install ffmpeg
           which google-chrome || which chromium || true
       - name: Capture genuine browser demo
         run: node scripts/capture_demo.mjs
